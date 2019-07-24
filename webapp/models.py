@@ -78,5 +78,15 @@ class LikePost(models.Model):
     def __str__(self):
         return (self.is_like, self.post)
         '''
-    
+'''
+class LikePost(models.Model):
+    is_like = models.BooleanField(default=none)
+    user = models.ForeignKey(User, on_delete.models.CASCADE)
+    post = models.ForeignKey(Post, on_delete.models.CASCADE)
+
+class LikeComment(models.Model):
+    is_like = models.BooleanField(default=none)
+    user = models.ForeignKey(User, on_delete.models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete.models.CASCADE)
+'''
     
