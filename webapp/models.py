@@ -82,12 +82,12 @@ class LikePost(models.Model):
 New classes for like/dislike.
 class LikePost(models.Model):
     is_like = models.BooleanField(default=none)
-    user = models.ForeignKey(User, on_delete.models.CASCADE)
-    post = models.ForeignKey(Post, on_delete.models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 class LikeComment(models.Model):
     is_like = models.BooleanField(default=none)
-    user = models.ForeignKey(User, on_delete.models.CASCADE)
-    comment = models.ForeignKey(Comment, on_delete.models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 '''
     
