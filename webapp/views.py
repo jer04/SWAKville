@@ -129,7 +129,7 @@ def post_page(request):
 
     
 def post_view(request, post_id):
-    post = Post.objects.get(postID = post_id)
+    post = Post.objects.get(id = post_id)
     context = {
         'post' : post
     }
