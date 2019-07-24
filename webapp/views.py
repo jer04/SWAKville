@@ -127,4 +127,11 @@ def post_page(request):
         return render(request, 'web/post_page.html')
     # return render(request, 'posts/post_page.html')
 
-# forms.py
+    
+def post_view(request, post_id):
+    post = Post.objects.get(postID = post_id)
+    context = {
+        'post' : post
+    }
+    return render(request, 'blog/post_view.html', context)
+
