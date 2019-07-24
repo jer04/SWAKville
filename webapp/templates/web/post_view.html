@@ -1,0 +1,25 @@
+{% extends 'blog/layout.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Post View</title>
+  </head>
+  <body>
+    <h1>This is the post view page</h1>
+    <div>
+      <button>
+          <a href="/blog">Back to blog</a>
+      </button>
+    </div>
+    <form method="get">
+    <div>
+    	<p>{{post.postTitle}}</p><br>
+    	<p>{{post.text}}</p>
+    </div>
+	</form>
+  </body>
+</html>
+{% endblock %}
