@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^delete/', views.delete, name='delete'),
     url(r'^blog_page/', views.blog_page, name='blog_page'),
     url(r'^post_page/', views.post_page, name='post_page'),
+    url(r'^postview/(?P<post_id>\d+)$', views.post_view, name='postview'),
 ];
 
