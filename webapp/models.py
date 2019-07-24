@@ -79,6 +79,7 @@ class LikePost(models.Model):
         return (self.is_like, self.post)
         '''
 '''
+New classes for like/dislike.
 class LikePost(models.Model):
     is_like = models.BooleanField(default=none)
     user = models.ForeignKey(User, on_delete.models.CASCADE)
