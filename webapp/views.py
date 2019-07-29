@@ -111,52 +111,119 @@ def post_page(request):
         return render(request, 'web/post_page.html')
 
 def post_view(request, post_id):
-    if request.method == "POST":
-        comment_body = request.POST.get('comment')    
-
-        current_user_id = request.session.get('logged_user_id')
+    current_post = Post.objects.get(id = post_id)
+    #check maybe??
+    current_user_id = request.session.get('logged_user_id')
+    #
+    comments = Comment.objects.filter(post = current_post)
+    try:
         current_user = User.objects.get(id=current_user_id)
-        current_post = Post.objects.get(id = post_id)
-        request.session['current_post_id'] = post_id
-
-        new_comment = Comment(user = current_user, post = current_post, commentBody = comment_body, created_on=datetime.now())
-        new_comment.save()
-
-        comments = Comment.objects.filter(post = current_post)
-
+        if request.method == "POST":
+            comment_body = request.POST.get('comment')
+            newComment = Comment(user = current_user, post = current_post, commentBody = comment_body)
+            newComment.save();           
+            comments = Comment.objects.filter(post = current_post)    
+            
         context = {
-             'post': current_post,
-             'comments': comments
-        }
-        return render(request, 'web/post_view.html', context)
-    else:
-        post = Post.objects.get(id = post_id)
-        request.session['current_post_id'] = post_id
-        comments = Comment.objects.filter(post = post).order_by('-created_on')
-        
-        context = {
-            'post': post,
+            'post': current_post,
             'comments': comments,
         }
-        return render(request, 'web/post_view.html', context)
+        return render(request, 'web/post_view.html', context)     
+    except User.DoesNotExist:
+        context = {
+            'post': current_post,
+            'comments': comments,
+        }
+        return render(request, 'web/publicPostView.html', context)
 
 def user_profile(request, user_id):     
     user = User.objects.get(id=user_id)
-    current_post_id = request.session.get('current_post_id')
+    #current_post_id = request.session.get('current_post_id')
     context = {
         'user': user,
-        'postid': current_post_id
+        #'postid': current_post_id
     }
     return render(request, 'web/user_profile.html',  context)
 
-def user_blog(request, user_id):     
-    user = User.objects.get(id=user_id)
-    posts = Post.objects.filter(user_id=user_id).order_by('-created_on')
-    context = {
-        'user': user,
-        'posts': posts
-    }
-    return render(request, 'web/user_blog.html',  context)
+def user_blog(request, user_id):
+    current_user_id = request.session.get('logged_user_id')
+    try:
+        current_user = User.objects.get(id=current_user_id)
+        if request.method =="POST" and 'likebutton' in request.POST:
+            current_post_id = request.POST.get('likebutton')
+            current_post = Post.objects.get(id=current_post_id)       
+            try:
+                likeobject = LikePost.objects.get(user_id=current_user_id, post_id=current_post_id)
+                if likeobject.is_like == True:
+                    current_post.likes -= 1
+                    likeobject.delete()
+                    current_post.save()
+                else:
+                    likeobject.is_like = True                
+                    current_post.dislikes -= 1
+                    current_post.likes += 1
+                    likeobject.save()
+                    current_post.save()
+            except LikePost.DoesNotExist:
+                new_like_post = LikePost(is_like=True, post=current_post, user=current_user, created_on=datetime.now())
+                current_post.likes += 1
+                current_post.save()
+                new_like_post.save()
+
+            user = User.objects.get(id=user_id)
+            posts = Post.objects.filter(user_id=user_id).order_by('-created_on')
+            context = {
+                'user': user,
+                'posts': posts
+            }
+            return render(request, 'web/user_blog.html',  context)
+
+
+        elif request.method =="POST" and 'dislikebutton' in request.POST:
+            current_post_id = request.POST.get('dislikebutton')
+            current_post = Post.objects.get(id=current_post_id) 
+            try:
+                likeobject = LikePost.objects.get(user_id=current_user_id, post_id=current_post_id)
+                if likeobject.is_like == True:
+                    likeobject.is_like = False
+                    current_post.likes -= 1
+                    current_post.dislikes += 1
+                    current_post.save()
+                    likeobject.save()
+                else:
+                    current_post.dislikes -= 1
+                    likeobject.delete()
+                    current_post.save()
+            except LikePost.DoesNotExist:
+                new_like_post = LikePost(is_like=False, post=current_post, user=current_user, created_on=datetime.now())
+                current_post.dislikes += 1
+                current_post.save()
+                new_like_post.save()
+
+            user = User.objects.get(id=user_id)
+            posts = Post.objects.filter(user_id=user_id).order_by('-created_on')
+            context = {
+                'user': user,
+                'posts': posts
+            }
+            return render(request, 'web/user_blog.html',  context)
+   
+        else:
+            user = User.objects.get(id=user_id)
+            posts = Post.objects.filter(user_id=user_id).order_by('-created_on')
+            context = {
+                'user': user,
+                'posts': posts
+            }
+            return render(request, 'web/user_blog.html',  context)
+    except User.DoesNotExist:
+        user = User.objects.get(id=user_id)
+        posts = Post.objects.filter(user_id=user_id).order_by('-created_on')
+        context = {
+            'user': user,
+            'posts': posts
+        }
+        return render(request, 'web/user_blog.html',  context)
     
 
 def search(request):
