@@ -1,0 +1,32 @@
+{% block content %}
+  
+  <p>Available tags:</p>
+  
+	<form method = "GET" >
+		{% csrf_token %}
+		<label for="search">Tags</label><br>
+      	<input type="text"  maxlength=50 name = "search" class ="form-control">
+      	<input type="submit" value="Search Post">
+	</form>
+
+	{% if posts %}
+	<div class="posts">
+      {% for post in posts %}
+        <div class="post" style="width: 70%; background: #78B7F5; border-style: solid; border-radius: 25px; display: inline-block;">
+        
+          <h2><a href="/post_view/{{post.id}}">{{post.postTitle}}</a></h2>
+          <p>{{post.postBody}}</p>
+          <p>from: {{post.user.username}}</p>
+          <p># of likes:{{post.likes}}  | # of dislikes{{post.dislikes}}</p>
+        </div>
+      {% endfor %}
+    </div>
+	{% endif %}
+    <div>
+        <button>
+            <a href="{% url 'blog_page' %}">Go back to blog</a>
+        </button>
+    </div>
+
+
+{% endblock %}

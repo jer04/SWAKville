@@ -14,7 +14,11 @@
 
       <label for="new_body">Body:</label><br>
       <textarea name="new_body" class="form-control" required style="width:300px;height:300px;"></textarea><br>
+
+      <label for="tags">Tags</label><br>
+      <input type="text"  maxlength=50 name = "tags" class ="form-control"><br>
       {% csrf_token %}
+
       <input type="submit" value="Create Post">
     </form>
   </body>

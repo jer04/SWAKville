@@ -1,0 +1,29 @@
+{% if posts %}
+<div class="posts">
+  {% for post in posts %}
+    <div class="post" style="width: 70%; background: #78B7F5; border-style: solid; border-radius: 25px; display: inline-block;">
+
+      <h2><a href="/post_view/{{post.id}}">{{post.postTitle}}</a></h2>
+      <p>{{post.postBody}}</p>
+      <p>from: {{post.user.username}}</p>
+      <p># of likes:{{post.likes}}  | # of dislikes{{post.dislikes}}</p>
+      <form method="POST">
+      {% csrf_token %}
+        <button type="submit" name="likebutton" value="{{post.id}}" class="btn">Like</button>
+      </form>
+      <form method="POST">
+        {% csrf_token %}
+          <button type="submit" name="dislikebutton" value="{{post.id}}" class="btn">Dislike</button>
+      </form>
+
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div>
+    <button>
+        <a href="{% url 'blog_page' %}">Go back to blog</a>
+    </button>
+</div>
+
