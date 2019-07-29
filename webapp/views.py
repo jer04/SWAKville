@@ -7,6 +7,8 @@ from datetime import datetime
 
 def base(request):
     #User.objects.all().delete()
+    request.session.flush()
+
     return render(request, "web/base.html")
 
 def signup(request):
@@ -146,6 +148,15 @@ def user_profile(request, user_id):
         'postid': current_post_id
     }
     return render(request, 'web/user_profile.html',  context)
+
+def user_blog(request, user_id):     
+    user = User.objects.get(id=user_id)
+    posts = Post.objects.filter(user_id=user_id).order_by('-created_on')
+    context = {
+        'user': user,
+        'posts': posts
+    }
+    return render(request, 'web/user_blog.html',  context)
     
 
 def search(request):
