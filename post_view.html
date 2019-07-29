@@ -1,0 +1,90 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Post View</title>
+  </head>
+  <body>
+    <h1>This is the post view page</h1>
+    <div>
+      <button>
+          <a href="/blog_page">Back to blog</a>
+      </button>
+    </div>
+    
+    {% if request.user.is_authenticated %}
+    <div>
+      <p>From: <a href ="/user_profile/{{post.user.id}}">{{post.user.username}}</a></p>
+    	<p>Post Title: {{post.postTitle}}</p><br>
+      <p>Post Body: {{post.postBody}}</p>      
+      <p># of likes:{{post.likes}}  | # of dislikes{{post.dislikes}}</p>
+    </div>
+    
+    <div style="border-style: ridge; width:auto; max-width: 80%">
+      {% if not comments %}
+      No comments yet!
+      {% endif %}
+
+      {% for comment in comments %}  
+      <div style="border-style: ridge;">
+        <div class="post" style = "width: 50%">
+
+          <a href ="/user_profile/{{comment.user.id}}">{{comment.user.username}}</a>
+        
+        </div>
+        <div style = "width: 50%">
+          {{comment.created_on}}
+        </div>
+        <br>
+        {{comment.commentBody}}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div>
+
+      <h3>Create new Comment</h3>
+      <form id = "new_comment" method="POST" action = "/post_view/{{post.id}}"> {% csrf_token %}
+        <div>
+
+          <label for="comment">Body:</label><br>
+          <textarea name="comment" class="form-control" required style="width:200px;height:100px;"></textarea><br>
+
+        </div>
+        <input type="submit" value="Post Comment">
+
+      </form>
+    </div>
+    {% else %}
+    <div>
+      <p>From: <a href ="/user_profile/{{post.user.id}}">{{post.user.username}}</a></p>
+      <p>Post Title: {{post.postTitle}}</p><br>
+      <p>Post Body: {{post.postBody}}</p>      
+      <p># of likes:{{post.likes}}  | # of dislikes{{post.dislikes}}</p>
+    </div>
+
+    <div style="border-style: ridge; width:auto; max-width: 80%">
+      {% if not comments %}
+      No comments yet!
+      {% endif %}
+
+      {% for comment in comments %}  
+      <div style="border-style: ridge;">
+        <div class="post" style = "width: 50%">
+
+          <a href ="/user_profile/{{comment.user.id}}">{{comment.user.username}}</a>
+        
+        </div>
+        <div style = "width: 50%">
+          {{comment.created_on}}
+        </div>
+        <br>
+        {{comment.commentBody}}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </body>
+</html>
+{% endblock %}
