@@ -7,7 +7,7 @@ class User(models.Model):
     lastName = models.CharField(max_length = 15)
     email = models.EmailField(max_length = 50, unique=True)
     password = models.CharField(max_length = 30)
-    #profilePic = models.IntegerField(default = 0)  
+    profilePic = models.CharField(max_length = 100)
     #aboutMe = models.TextField(max_length = 200) 
     created_on = models.DateTimeField(auto_now_add=True)
     '''
