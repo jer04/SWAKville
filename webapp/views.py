@@ -19,9 +19,33 @@ def signup(request):
         tempemail = request.POST.get('email')
         temppassword = request.POST.get('password') 
         tempblogtitle = request.POST.get('blogtitle') 
+        tempavatar = request.POST.get('optradio')
+        
+        img = "None"
+        if(tempavatar == 0):
+            img = "https://i.imgur.com/wD37bSN.png"
+        elif(tempavatar == 1):
+            img = "https://i.imgur.com/8EO7dOn.png"
+        elif(tempavatar == 2):
+            img = "https://i.imgur.com/C3JBaMe.png"
+        elif(tempavatar == 3):
+            img = "https://i.imgur.com/rJdEwVh.png"
+        elif(tempavatar == 4):
+            img = "https://i.imgur.com/PASmZNL.png"
+        elif(tempavatar == 5):
+            img = "https://i.imgur.com/6DWchXW.png"
+        elif(tempavatar == 6):
+            img = "https://i.imgur.com/cmzAvQd.png"
+        elif(tempavatar == 7):
+            img = "https://i.imgur.com/nO1Clr3.png" 
+        elif(tempavatar == 8):
+            img = "https://i.imgur.com/6XWK0n3.png"
+        elif(tempavatar == 9):
+            img = "https://i.imgur.com/xRlFy7W.png"
+
 
         newuser = User(username=tempusername, firstName=tempfirstname, lastName=templastname,
-         email=tempemail, password=temppassword)
+         email=tempemail, password=temppassword, profilePic = img)
         newuser.save()
 
         newblog = Blog(blogTitle=tempblogtitle, user=newuser)
