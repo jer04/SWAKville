@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.navbar {
+	padding: .8rem;
+}
+
+.navbar-nav li {
+	padding-right: 20px;
+}
+
+.nav-link {
+	font-size: 1.1em !important;
+}
+
+.user {
+	background: #696969;
+	font-size: 20px;
+	text-align: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+
+body {
+	font-family: 'Roboto', sans-serif;
+	color: #fff;
+	background: url(img/background.png);
+}
+
+button {
+	width: 40%;
+	margin: 5px 0 25px;
+}
+
+.btn {
+	background-color: #27C2A5;
+	color: #fff;
+	font-size: 19px;
+	padding: 5px 5px;
+	border-radius: 5px;
+	border-bottom: 4px solid #219882;
+}
+
+.btn:hover, .btn:focus {
+	background-color: #25A890!important;
+	border-bottom: 4px solid #25A890!important;
+}
+
+.svg-inline--fa {
+	font-size: 20px;
+	margin-right: 7px;
+}
+
+
+header h1 {
+      color: #fff;
+      background-color: #4B9E6F;
+      text-align: center;
+      margin: 60px auto;
+      font-size: 75px;
+      font-weight: 400;
+}
+
+p {
+	  
+	  font-size: 20px;
+      text-align: center;
+      font-weight: 300;
+      margin-top: 10px;
+}
+
+.wall-item {
+      display: block;
+      margin: 0 0 24px 0;
+      padding: 12px;
+      background: #696969;
+      transition: all 200ms;
+}
+
+.wall-item:hover {
+      transform: translateY(-6px);
+      transition: all 200ms;
+}
+
+.wall-item h2 {
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      padding-bottom: 0;
+}
+
+.wall-column {
+      display: block;
+      position: relative;
+      width: 33.3333%;
+      float: left;
+      padding: 0 12px;
+      box-sizing: border-box;
+}
+
+.footer {
+	color: #696969;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #2F3640;
+	text-align: center;
+	font-size: 15px;
+}
+
+@media (max-width: 640px) {
+      .wall-column {
+            width: 50%;
+      }
+}
+
+@media (max-width: 480px) {
+      .wall-column {
+            width: auto;
+            float: none;
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
