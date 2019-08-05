@@ -9,10 +9,21 @@ urlpatterns = [
     url(r'^$',  views.base, name='base'),
     url(r'^login/', views.login ,name='login'),
     url(r'^signup/', views.signup ,name='signup'),
-    url(r'^home/', views.home ,name='home'),
+    url(r'^base/', views.base, name='base'),
     url(r'^delete/', views.delete, name='delete'),
     url(r'^blog_page/', views.blog_page, name='blog_page'),
     url(r'^post_page/', views.post_page, name='post_page'),
+
+    url(r'^post_view/(?P<post_id>\d+)$', views.post_view, name='post_view'),
+    #add
+    url(r'^search/', views.search, name ='search'),
+    url(r'^search_result/', views.search, name ='search_result'),
+    url(r'^public_posts/', views.public_posts, name='public_posts'),
+    url(r'^profile/', views.profile, name='profile'),
+    url(r'^user_profile/(?P<user_id>\d+)$', views.user_profile, name='user_profile'),
+    url(r'^user_blog/(?P<user_id>\d+)$', views.user_blog, name='user_blog'),
+    url(r'^publicPostView/(?P<post_id>\d+)$', views.post_view, name='publicPostView'),
+    #url(r'^user_profile/', views.user_profile, name='user_profile'),
 ]
 
 
