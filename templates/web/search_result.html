@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+	<title>Search Result</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+  
+  <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/search_result_style.css' %}">
+</head>
+
+<body>
+
+<nav class = "navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class = "container-fluid">				
+		<a class = "navbar-brand"><img src = "https://storage.googleapis.com/cs48project/static/img/shakville_logo.png" alt=""></a>
+		<div class = "collapse navbar-collapse" id = "navbarResponsive">
+		
+			<ul class = "navbar-nav ml-auto">
+				{% if login_count == 1 %}
+				<li class = "nav-item active">
+						<a class = "nav-link" href="{% url 'blog_page' %}"> My Profile </a>
+				</li>
+				{% else %}
+				<li class = "nav-item active">
+					<a class = "nav-link" href="{% url 'base' %}"> Home </a>
+				</li>
+				{% endif %}					
+				<li class = "nav-item active">
+					<a class = "nav-link" href="{% url 'search' %}"> Return to Search </a>
+				</li>
+			</ul>		
+		</div>
+	</div>
+</nav>
+		<div class="wall">
+				<div class="wall-item">
+						{% if user is None %}
+							<div class="user">	
+								<h1>Cannot find the user</h1>	
+							</div>
+						{% else %}
+							<div class="user">
+								<div class="user">
+									<h1><a href="/user_blog/{{user.id}}">{{user.username}}</a></h1>
+								</div>
+							</div>
+						{% endif %}			
+					</div>
+				{% if posts %}
+				<p>Posts you may want to see:</p>
+				  {% for post in posts %}
+					<div class="wall-item">					
+					  <h2><a href="/post_view/{{post.id}}">{{post.postTitle}}</a></h2>
+					  <p>{{post.postBody|truncatechars:50}}</p>
+					  <p>from: {{post.user.username}}</p>
+					  <p># of likes:{{post.likes}}  | # of dislikes{{post.dislikes}}</p>					  
+					</div>
+				  {% endfor %}
+				</div>
+				{% endif %}         
+      	</div>
+      
+
+	
+<div class = "footer">
+		<h5>&copy; shakville.com</h5>
+</div>
+	
+	  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+      <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+      <script src="{% static 'js/jaliswall.js' %}"></script>
+      <script type="text/javascript">
+
+            $('.wall').jaliswall({
+                  item : '.wall-item',
+                  columnClass : '.wall-column'
+            });
+
+      </script>
+</body>
+
+</html>

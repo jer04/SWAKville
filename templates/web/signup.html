@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <title>Blog | Sign Up</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+  
+  <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login_style.css' %}">
+</head>
+
+<body>
+
+<nav class = "navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class = "container-fluid">
+		<a class = "navbar-brand" href="#"><img src = "{% static 'img/shakville_logo.png' %}"></a>
+		<button class = "navbar-toggler" type = "button" data-toggle = "collapse" 
+		data-target = "#navbarResponsive">
+			<span class = "navbar-toggler-icon"></span>
+		</button>
+		
+		<div class = "collapse navbar-collapse" id = "navbarResponsive">
+			<ul class = "navbar-nav ml-auto">
+				<li class = "nav-item active">
+					<a class = "nav-link" href="/base">Home</a>
+				</li>
+				<li class = "nav-item active">
+					<a class = "nav-link" href="/signup">Register</a>
+				</li>
+				<li class = "nav-item active">
+					<a class = "nav-link" href="/login">Log in</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+ <div class = "modal-dialog text-center">
+ 	<div class = "col-sm-8 main-section">
+ 		<div class = "modal-content">
+ 		
+ 		<div class = "col-12 user-img">
+				
+ 			 <img src = "{% static 'img/welcome.png' %}">
+		</div>
+ 		
+ 		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+ 			<div class = "form-group">
+ 				<input type = "text" name="firstname" value="{{firstname}}" required class = "form-control" placeholder = "Enter First Name">
+ 			</div>
+ 			
+ 			 <div class = "form-group">
+ 				<input type = "text" name="lastname" value="{{lastname}}" required class = "form-control" placeholder = "Enter Last Name">
+ 			</div>
+ 			
+ 			 <div class = "form-group">
+ 				<input type = "text" name="username" value="{{username}}" required class = "form-control" placeholder = "Enter Username">
+ 			</div>
+ 			
+ 			 <div class = "form-group">
+ 				<input type = "text" name="email" value="{{email}}" required class = "form-control" placeholder = "Enter Email">
+ 			</div>
+ 			
+ 			 <div class = "form-group">
+ 				<input type = "password" name="password" value="{{password}}" required class = "form-control" placeholder = "Enter Password">
+ 			</div>
+			 <div class = "form-group">
+ 				<input type = "text" name="blogtitle" value="{{blogtitle}}" required class = "form-control" placeholder = "Enter your blog title">
+ 			</div>
+ 			
+ 			<button type = "submit" class = "btn"><i class = "fas fa-sign-in-alt"></i>
+ 			Sign Up</button>
+ 		</form>
+
+
+ 		
+ 		</div> <!--- End of Modal Content --->
+ 	</div>
+ </div>
+
+</body>
+</html>
+
+
+
+

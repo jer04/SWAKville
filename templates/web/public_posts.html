@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Public Posts</title>
+      <link rel="stylesheet" href="{% static 'css/blog_style.css' %}">
+</head>
+<body>
+    <div>
+        <button>
+          <a href="{% url 'base' %}">home</a>
+        </button>
+    </div>
+    
+    {% if login_count == 1 %}
+    <div>
+        <button>
+          <a href="{% url 'blog_page' %}">Go back to blog</a>
+        </button>
+    </div>
+    {% endif %}
+    
+      <header>
+            <h1>Public Posts</h1>
+      </header>
+
+      {% if posts %}
+        <div class="wall">     
+            {% for post in posts %}
+            <div class="wall-item">
+                <h2><a href="/post_view/{{post.id}}">{{post.postTitle}}</a></h2>
+                <p>Post Body: {{post.postBody}}</p>
+                <p># of likes:{{post.likes}}  | # of dislikes{{post.dislikes}}</p>
+                {% if login_count == 1 %}
+                  <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="likebutton" value="{{post.id}}" class="btn">Like</button>
+                  </form>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="dislikebutton" value="{{post.id}}" class="btn">Dislike</button>
+                  </form> 
+                {% endif %}
+            </div>
+            {% endfor %}               
+        </div>
+      {% endif %}     
+
+      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+      <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+      <script src="{% static 'js/jaliswall.js' %}"></script>
+      <script type="text/javascript">
+
+            $('.wall').jaliswall({
+                  item : '.wall-item',
+                  columnClass : '.wall-column'
+            });
+
+      </script>
+</body>
+</html>
