@@ -2,6 +2,6 @@ Django==2.2.3
 mysqlclient==1.4.2.post1
 PyMySQL==0.9.3
 pytz==2019.1
-sqlparse==0.3.0
+sqlparse==0.4.4
 virtualenv==16.6.2
 virtualenvwrapper-win==1.2.5
